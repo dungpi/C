@@ -59,13 +59,13 @@ void enter (Sach *sach, int &sotuasach){
     gets(nguoimuon->manguoimuon);
 }
 void print (Sach *sach){
-    printf ("Ma sach: %-10s||Ten Sach: %-20s||The Loai: %-15s||Tac Gia: %-10s||Nam Xuat Ban: %-4d||So Luong: %-4d||Gia: %-6d",sach->masach,sach->ten,sach->theloai,sach->tentacgia,sach->namxuatban,sach->soluong,sach->gia);
+    printf ("\nMa sach: %-10s||Ten Sach: %-20s||The Loai: %-15s||Tac Gia: %-10s||Nam Xuat Ban: %-4d||So Luong: %-4d||Gia: %-6d",sach->masach,sach->ten,sach->theloai,sach->tentacgia,sach->namxuatban,sach->soluong,sach->gia);
 }
 void print (Sach *sach, int sotuasach){
-    printf ("\n=====================================================================LIST=========================================================================");
+    printf ("\n======================================================================LIST=========================================================================");
     for (int i = 0; i < sotuasach ; i++){
-        printf ("\n\n--------------------------------------------------------------------------------------------------------------------------------------------------");
-        printf ("\n\t\t\t\t\t\t\t\tThong tin Sach %d \n\n",i+1);
+        printf ("\n---------------------------------------------------------------------------------------------------------------------------------------------------");
+        // printf ("\n\t\t\t\t\t\t\t\tThong tin Sach %d \n\n",i+1);
         print(sach+i);
     }
 }
