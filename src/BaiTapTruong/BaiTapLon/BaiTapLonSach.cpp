@@ -1,6 +1,15 @@
 #include <stdio.h>
+#include<string.h>
 #include <stdlib.h>
-
+#define MAX 20
+/* Thêm các tính năng như: 
+    1.Đếm số sách trong kho(thống kê)
+    2.tìm kiếm theo tên sách,tên tác giả
+    3.Thống kê sách theo năm xuất bản
+    4.Thêm bớt sách 
+    5.Thanh toán gồm: Mã sách|| Tên sách|| số lượng ||giá => Tổng số tiền 
+    6.Xuất ra file nhị phân
+*/
 struct Sach{
     char masach [30];
     char ten[30];
@@ -19,13 +28,18 @@ void enter (Sach *sach, int &sotuasach);
 void enter (Nguoimuon *nguoimuon);
 void print (Sach *sach);
 void print (Sach *sach, int sotuasach);
+void find (Sach *sach, int sotuasach);
+int total (Sach *sach, int sotuasach);
+void sortup (Sach *sach, int sotuasach);
+void statistical (Sach *sach, int sotuasach);
 
 int main (){
     Sach *sach;
     int sotuasach;
     sach = (Sach *)malloc(sizeof(Sach));
     enter (sach,sotuasach);
-    print (sach,sotuasach);
+    // print (sach,sotuasach);
+    statistical (sach,sotuasach);
     return 0;
 }
 void enter (Sach *sach){
@@ -46,8 +60,15 @@ void enter (Sach *sach){
     scanf("%d",&sach->gia);
 }
 void enter (Sach *sach, int &sotuasach){
+    do {
     printf ("Nhap So Luong Sach Trong Thu Vien: ");
     scanf("%d",&sotuasach);
+        if (sotuasach <= 0||sotuasach > MAX){
+            printf ("Xin vui long nhap lai!!!");
+            printf ("\nNhap So Luong Sach Trong Thu Vien: ");
+            scanf("%d",&sotuasach);
+        }
+    }while (sotuasach <= 0||sotuasach > MAX);
     sach = (Sach*)realloc(sach,(sotuasach)*sizeof(Sach));
     for (int i = 0; i < sotuasach ; i++){
         printf ("\n\n--------------------------------");
@@ -62,10 +83,41 @@ void print (Sach *sach){
     printf ("\nMa sach: %-10s||Ten Sach: %-20s||The Loai: %-15s||Tac Gia: %-10s||Nam Xuat Ban: %-4d||So Luong: %-4d||Gia: %-6d",sach->masach,sach->ten,sach->theloai,sach->tentacgia,sach->namxuatban,sach->soluong,sach->gia);
 }
 void print (Sach *sach, int sotuasach){
-    printf ("\n======================================================================LIST=========================================================================");
+    printf ("\n=======================================================================LIST=========================================================================");
     for (int i = 0; i < sotuasach ; i++){
-        printf ("\n---------------------------------------------------------------------------------------------------------------------------------------------------");
+        printf ("\n----------------------------------------------------------------------------------------------------------------------------------------------------");
         // printf ("\n\t\t\t\t\t\t\t\tThong tin Sach %d \n\n",i+1);
         print(sach+i);
+    }
+}
+void find (Sach *sach, int sotuasach){
+
+}
+int total (Sach *sach, int sotuasach){
+    int sum = 0;
+    for(int i = 0; i < sotuasach;i ++){
+        sum +=((sach+i)->soluong);
+    }
+    return sum;
+}
+void sortup (Sach *sach, int sotuasach){
+    int temp ;
+    for (int i = 0; i < sotuasach-1; i++){
+        for(int j = i+1; j < sotuasach; j++){
+            if ((sach+i)->soluong > (sach+j)->soluong){
+                temp = (sach+i)->soluong;
+                (sach+i)->soluong = (sach+j)->soluong;
+                (sach+j)->soluong = temp;
+            }
+        }
+    }
+}
+void statistical (Sach *sach, int sotuasach){
+    printf ("\nSo luong sach co trong kho la: %d",total(sach,sotuasach));
+    printf ("\nTrong do co :");
+    sortup (sach,sotuasach);
+    for(int i = 0; i < sotuasach ; i++){
+        printf ("\nSo luong %d sach:%-20s ma sach:%-10s",(sach+i)->soluong,(sach+i)->ten,(sach+i)->masach);
+        printf ("\n--------------------------------------------------");
     }
 }
