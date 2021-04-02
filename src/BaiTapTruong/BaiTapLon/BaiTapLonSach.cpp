@@ -30,8 +30,13 @@ void print (Sach *sach);
 void print (Sach *sach, int sotuasach);
 void find (Sach *sach, int sotuasach);
 int total (Sach *sach, int sotuasach);
-void sortup (Sach *sach, int sotuasach);
-void statistical (Sach *sach, int sotuasach);
+void sortbynumber (Sach *sach, int sotuasach);
+void sortbyyear (Sach *sach, int sotuasach);
+void sortbyname (Sach *sach, int sotuasach);
+void statisticsbyquantity (Sach *sach, int sotuasach);
+void statisticsbyyear (Sach *sach,int sotuasach);
+void statisticsbyname (Sach *sach,int sotuasach);
+
 
 int main (){
     Sach *sach;
@@ -39,7 +44,9 @@ int main (){
     sach = (Sach *)malloc(sizeof(Sach));
     enter (sach,sotuasach);
     // print (sach,sotuasach);
-    statistical (sach,sotuasach);
+    statisticsbyquantity (sach,sotuasach);
+    statisticsbyyear (sach,sotuasach);
+    statisticsbyname (sach,sotuasach);
     return 0;
 }
 void enter (Sach *sach){
@@ -80,7 +87,7 @@ void enter (Sach *sach, int &sotuasach){
     gets(nguoimuon->manguoimuon);
 }
 void print (Sach *sach){
-    printf ("\nMa sach: %-10s||Ten Sach: %-20s||The Loai: %-15s||Tac Gia: %-10s||Nam Xuat Ban: %-4d||So Luong: %-4d||Gia: %-6d",sach->masach,sach->ten,sach->theloai,sach->tentacgia,sach->namxuatban,sach->soluong,sach->gia);
+    printf ("\nMa sach: %-10s||Ten Sach: %-20s||The Loai: %-15s||Tac Gia: %-10s||Nam Xuat Ban: %.4d||So Luong: %-3d||Gia: %-6d",sach->masach,sach->ten,sach->theloai,sach->tentacgia,sach->namxuatban,sach->soluong,sach->gia);
 }
 void print (Sach *sach, int sotuasach){
     printf ("\n=======================================================================LIST=========================================================================");
@@ -100,24 +107,61 @@ int total (Sach *sach, int sotuasach){
     }
     return sum;
 }
-void sortup (Sach *sach, int sotuasach){
-    int temp ;
+void sortbynumber (Sach *sach, int sotuasach){
+    Sach temp ;
     for (int i = 0; i < sotuasach-1; i++){
         for(int j = i+1; j < sotuasach; j++){
             if ((sach+i)->soluong > (sach+j)->soluong){
-                temp = (sach+i)->soluong;
-                (sach+i)->soluong = (sach+j)->soluong;
-                (sach+j)->soluong = temp;
+                temp = *(sach+i);
+                *(sach+i) = *(sach+j);
+                *(sach+j) = temp;
             }
         }
     }
 }
-void statistical (Sach *sach, int sotuasach){
+void sortbyyear (Sach *sach, int sotuasach){
+    Sach temp ;
+    for (int i = 0; i < sotuasach-1; i++){
+        for(int j = i+1; j < sotuasach; j++){
+            if ((sach+i)->namxuatban > (sach+j)->namxuatban){
+                temp = *(sach+i);
+                *(sach+i) = *(sach+j);
+                *(sach+j) = temp;
+            }
+        }
+    }
+}
+void sortbyname (Sach *sach, int sotuasach){
+    Sach temp;
+    for (int i = 0; i < sotuasach-1; i++){
+        for(int j = i+1; j < sotuasach; j++){
+            if ((strcmp((sach+i)->ten,(sach+j)->ten) > 0)){
+                temp = *(sach+i);
+                *(sach+i) = *(sach+j);
+                *(sach+j) = temp;
+            }
+        }
+    }
+}
+void statisticsbyquantity (Sach *sach, int sotuasach){
     printf ("\nSo luong sach co trong kho la: %d",total(sach,sotuasach));
     printf ("\nTrong do co :");
-    sortup (sach,sotuasach);
+    sortbynumber (sach,sotuasach);
     for(int i = 0; i < sotuasach ; i++){
-        printf ("\nSo luong %d sach:%-20s ma sach:%-10s",(sach+i)->soluong,(sach+i)->ten,(sach+i)->masach);
-        printf ("\n--------------------------------------------------");
+        printf ("\nSo luong %-3d sach: %-20s ||Ma sach: %-10s||The loai: %-15s||Tac gia: %-10s||Nam xuat ban: %.4d||Gia: %-6d",(sach+i)->soluong,(sach+i)->ten,(sach+i)->masach,(sach+i)->theloai,(sach+i)->tentacgia,(sach+i)->namxuatban,(sach+i)->gia);
+        printf ("\n--------------------------------------------------------------------------------------------------------------------------------------------");
+    }
+}void statisticsbyyear (Sach *sach,int sotuasach){
+    sortbyyear (sach,sotuasach);
+    for(int i = 0; i < sotuasach ; i++){
+        printf ("\nNam %.4d sach: %-24s ||Ma sach: %-10s||The loai: %-15s||Tac Gia: %-10s||So luong: %-8d||Gia: %-6d",(sach+i)->namxuatban,(sach+i)->ten,(sach+i)->masach,(sach+i)->theloai,(sach+i)->tentacgia,(sach+i)->soluong,(sach+i)->gia);
+        printf ("\n--------------------------------------------------------------------------------------------------------------------------------------------");
+    }
+}
+void statisticsbyname (Sach *sach,int sotuasach){
+    sortbyname (sach,sotuasach);
+    for(int i = 0; i < sotuasach ; i++){
+        printf ("\nSach: %-19s||So Luong: %-3d||Ma sach: %-10s||The Loai: %-15s||Tac Gia: %-10s||Nam Xuat Ban: %.4d||Gia: %-6d",(sach+i)->ten,(sach+i)->soluong,(sach+i)->masach,(sach+i)->theloai,(sach+i)->tentacgia,(sach+i)->namxuatban,(sach+i)->gia);
+    
     }
 }
