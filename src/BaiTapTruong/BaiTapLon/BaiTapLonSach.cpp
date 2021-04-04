@@ -10,6 +10,7 @@
     4.Thêm bớt sách 
     5.Thanh toán gồm: Mã sách|| Tên sách|| số lượng ||giá => Tổng số tiền 
     6.Xuất ra file nhị phân
+    7.Menu (DONE)
 */
 struct Sach{
     char masach [30];
@@ -32,13 +33,21 @@ void sortbyname (Sach *sach, int sotuasach);
 void statisticsbyquantity (Sach *sach, int sotuasach);//thống kê
 void statisticsbyyear (Sach *sach,int sotuasach);
 void statisticsbyname (Sach *sach,int sotuasach);
+void add(Sach *sach, int &sotuasach, Sach val, int pos);
+void erase (Sach *sach, int &sotuasach, int pos);
 void menu (Sach *sach, int sotuasach);
 int main (){
     Sach *sach;
-    int sotuasach;
+    int sotuasach,pos;
+    Sach *val;
     sach = (Sach *)malloc(sizeof(Sach));
     enter (sach,sotuasach);
-    menu (sach,sotuasach);
+    print (sach,sotuasach);
+    add (sach,sotuasach,val,pos);
+    print (sach,sotuasach);
+    erase (sach,sotuasach,pos);
+    print (sach,sotuasach);
+    // menu (sach,sotuasach);
     return 0;
 }
 void enter (Sach *sach){
@@ -166,6 +175,54 @@ void statisticsbyname (Sach *sach,int sotuasach){
         printf ("\nSach: %-19s||So Luong: %-3d||Ma sach: %-10s||The Loai: %-15s||Tac Gia: %-10s||Nam Xuat Ban: %.4d||Gia: %-6d",(sach+i)->ten,(sach+i)->soluong,(sach+i)->masach,(sach+i)->theloai,(sach+i)->tentacgia,(sach+i)->namxuatban,(sach+i)->gia);
         printf ("\n-----------------------------------------------------------------------------------------------------------------------------------------------");
     }
+}
+void add(Sach *sach, int &sotuasach, Sach val, int pos){
+    printf("\nNhap Thong Tin Sach Can Them ");
+    enter (val);
+    printf("\nNhap vi tri muon chen: ");
+    scanf("%d", &pos);
+    // Mang da day, khong the them.
+    if(sotuasach >= MAX){
+        return;
+    }
+    // Neu pos <= 0 => Them vao dau
+    if(pos < 0){
+        pos = 0;
+    }
+    // Neu pos >= n => Them vao cuoi
+    else if(pos > sotuasach){
+        pos = sotuasach;
+    }
+    // Dich chuyen mang de tao o trong truoc khi them.
+    for(int i = sotuasach; i > pos; i--){
+        (sach+i) = (sach+i-1);
+    }
+    // Chen val tai pos
+    (sach+pos) = val;
+    // Tang so luong phan tu sau khi chen.
+    ++sotuasach;
+}
+void erase (Sach *sach, int &sotuasach, int pos){
+    printf("\nNhap vi tri muon xoa: ");
+    scanf("%d", &pos);
+    // Mang rong, khong the xoa.
+    if(sotuasach <= 0){
+        return;
+    }
+    // Neu pos <= 0 => Xoa dau
+    if(pos < 0){
+        pos = 0;
+    }
+    // Neu pos >= n => Xoa cuoi
+    else if(pos >= sotuasach){
+        pos = sotuasach-1;
+    }
+    // Dich chuyen mang
+    for(int i = pos; i < sotuasach - 1; i++){
+        (sach+i) = (sach+i+1);
+    }
+    // Giam so luong phan tu sau khi xoa.
+    --sotuasach;
 }
 void menu (Sach *sach, int sotuasach){
     int choise ;
