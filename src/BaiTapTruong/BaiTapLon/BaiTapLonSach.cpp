@@ -4,7 +4,7 @@
 #define MAX 20
 /* Thêm các tính năng như: 
     1.Đếm số sách trong kho(thống kê)(DONE)
-    2.tìm kiếm theo tên sách,tên tác giả
+    2.tìm kiếm theo tên sách (DONE)
     3.Thống kê sách theo năm xuất bản (DONE)
     4.Thêm bớt sách 
     5.Thanh toán gồm: Mã sách|| Tên sách|| số lượng ||giá => Tổng số tiền 
