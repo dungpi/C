@@ -20,13 +20,8 @@ struct Sach{
     int soluong;
     int gia;
 };
-struct Nguoimuon{
-    char manguoimuon[30];
-    Sach *sach;
-};
 void enter (Sach *sach);
 void enter (Sach *sach, int &sotuasach);
-void enter (Nguoimuon *nguoimuon);
 void print (Sach *sach);
 void print (Sach *sach, int sotuasach);
 void findbyname (Sach *sach, int sotuasach);
@@ -43,8 +38,7 @@ int main (){
     int sotuasach;
     sach = (Sach *)malloc(sizeof(Sach));
     enter (sach,sotuasach);
-    findbyname(sach,sotuasach);
-    // menu (sach,sotuasach);
+    menu (sach,sotuasach);
     return 0;
 }
 void enter (Sach *sach){
@@ -80,9 +74,6 @@ void enter (Sach *sach, int &sotuasach){
         printf ("\nNhap thong tin Sach %d\n",i+1);
         enter(&*(sach+i));
     }
-}void enter (Nguoimuon *nguoimuon){
-    printf ("Nhap Ma Nguoi Muon: ");
-    gets(nguoimuon->manguoimuon);
 }
 void print (Sach *sach){
     printf ("\nMa sach: %-10s||Ten Sach: %-20s||The Loai: %-15s||Tac Gia: %-10s||Nam Xuat Ban: %.4d||So Luong: %-3d||Gia: %-6d",sach->masach,sach->ten,sach->theloai,sach->tentacgia,sach->namxuatban,sach->soluong,sach->gia);
@@ -91,7 +82,6 @@ void print (Sach *sach, int sotuasach){
     printf ("\n=======================================================================LIST=========================================================================");
     for (int i = 0; i < sotuasach ; i++){
         printf ("\n----------------------------------------------------------------------------------------------------------------------------------------------------");
-        // printf ("\n\t\t\t\t\t\t\t\tThong tin Sach %d \n\n",i+1);
         print(sach+i);
     }
 }
