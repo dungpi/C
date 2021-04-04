@@ -1,5 +1,6 @@
 #include <stdio.h>
-#include<string.h>
+#include <conio.h>
+#include <string.h>
 #include <stdlib.h>
 #define MAX 20
 /* Thêm các tính năng như: 
@@ -36,14 +37,14 @@ void sortbyname (Sach *sach, int sotuasach);
 void statisticsbyquantity (Sach *sach, int sotuasach);//thống kê
 void statisticsbyyear (Sach *sach,int sotuasach);
 void statisticsbyname (Sach *sach,int sotuasach);
-
+void menu (Sach *sach, int sotuasach);
 int main (){
     Sach *sach;
     int sotuasach;
     sach = (Sach *)malloc(sizeof(Sach));
     enter (sach,sotuasach);
-    // print (sach,sotuasach);
-    findbyname (sach,sotuasach);
+    findbyname(sach,sotuasach);
+    // menu (sach,sotuasach);
     return 0;
 }
 void enter (Sach *sach){
@@ -96,14 +97,19 @@ void print (Sach *sach, int sotuasach){
 }
 void findbyname (Sach *sach, int sotuasach){
     char name [30];
+    int count = 0;
     fflush(stdin);
     printf ("\nNhap Ten Sach Can Tim: ");
     gets (name);
     for (int i = 0; i < sotuasach ; i++){
-        if ((strcmp (name,(sach+i)->ten)) == 0){
+        if (strcmp (name,(sach+i)->ten) == 0){
             printf ("\nMa sach: %-10s||Ten Sach: %-20s||The Loai: %-15s||Tac Gia: %-10s||Nam Xuat Ban: %.4d||So Luong: %-3d||Gia: %-6d",(sach+i)->masach,(sach+i)->ten,(sach+i)->theloai,(sach+i)->tentacgia,(sach+i)->namxuatban,(sach+i)->soluong,(sach+i)->gia);
             printf ("\n----------------------------------------------------------------------------------------------------------------------------------------------------");
+            count ++;
         }
+    }
+    if(count == 0){
+        printf("\nKhong co sach do trong kho!");
     }
 }
 int total (Sach *sach, int sotuasach){
@@ -141,7 +147,7 @@ void sortbyname (Sach *sach, int sotuasach){
     Sach temp;
     for (int i = 0; i < sotuasach-1; i++){
         for(int j = i+1; j < sotuasach; j++){
-            if ((strcmp((sach+i)->ten,(sach+j)->ten) > 0)){
+            if (strcmp((sach+i)->ten,(sach+j)->ten) > 0){
                 temp = *(sach+i);
                 *(sach+i) = *(sach+j);
                 *(sach+j) = temp;
@@ -170,4 +176,35 @@ void statisticsbyname (Sach *sach,int sotuasach){
         printf ("\nSach: %-19s||So Luong: %-3d||Ma sach: %-10s||The Loai: %-15s||Tac Gia: %-10s||Nam Xuat Ban: %.4d||Gia: %-6d",(sach+i)->ten,(sach+i)->soluong,(sach+i)->masach,(sach+i)->theloai,(sach+i)->tentacgia,(sach+i)->namxuatban,(sach+i)->gia);
         printf ("\n-----------------------------------------------------------------------------------------------------------------------------------------------");
     }
+}
+void menu (Sach *sach, int sotuasach){
+    int choise ;
+    char k,c ;
+    do{
+        printf("\n===========MENU==========\n");
+        printf("0.Xuat Danh Sach Da Nhap\n");
+        printf("1.Thong Ke Sach Theo So Luong\n");
+        printf("2.Thong Ke Sach Theo Nam Xuat Ban\n");
+        printf("3.Thong Ke Sach Thep Ten Sach (A->Z)\n");
+        printf("4.Tim Sach Theo Ten Sach\n");
+        printf("Your choise:");
+        scanf("%d",&choise);
+        switch (choise){
+            case 0: print(sach,sotuasach);
+                break;
+            case 1:statisticsbyquantity(sach,sotuasach);
+                break;
+            case 2:statisticsbyyear(sach,sotuasach);
+                break;
+            case 3:statisticsbyname(sach,sotuasach);
+                break;
+            case 4:findbyname(sach,sotuasach);
+                break;
+            default: printf ("\nKhong Hop Le!!! Vui long nhap lai lua chon: ");
+                break;
+        }
+        printf("\nDo you want to exit ?(esc)");
+        k = getch();
+        c = k;
+    }while(c != 27);
 }
