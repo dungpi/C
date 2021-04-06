@@ -33,12 +33,13 @@ void sortbyname (Sach *sach, int sotuasach);
 void statisticsbyquantity (Sach *sach, int sotuasach);//thống kê
 void statisticsbyyear (Sach *sach,int sotuasach);
 void statisticsbyname (Sach *sach,int sotuasach);
-void add(Sach *sach, int &sotuasach, Sach val, int pos);
+void add(Sach *sach, int &sotuasach, Sach *val, int pos);
 void erase (Sach *sach, int &sotuasach, int pos);
 void menu (Sach *sach, int sotuasach);
 int main (){
     Sach *sach;
-    int sotuasach,pos;
+    int sotuasach,pos;   
+
     Sach *val;
     sach = (Sach *)malloc(sizeof(Sach));
     enter (sach,sotuasach);
@@ -176,8 +177,10 @@ void statisticsbyname (Sach *sach,int sotuasach){
         printf ("\n-----------------------------------------------------------------------------------------------------------------------------------------------");
     }
 }
-void add(Sach *sach, int &sotuasach, Sach val, int pos){
-    printf("\nNhap Thong Tin Sach Can Them ");
+void add(Sach *sach, int &sotuasach, Sach *val, int pos){
+        val = (Sach*)realloc(val,(sotuasach)*sizeof(Sach));
+    fflush(stdin);
+    printf("\nNhap Thong Tin Sach Can Them\n");
     enter (val);
     printf("\nNhap vi tri muon chen: ");
     scanf("%d", &pos);
@@ -195,10 +198,10 @@ void add(Sach *sach, int &sotuasach, Sach val, int pos){
     }
     // Dich chuyen mang de tao o trong truoc khi them.
     for(int i = sotuasach; i > pos; i--){
-        (sach+i) = (sach+i-1);
+        *(sach+i) = *(sach+i-1);
     }
     // Chen val tai pos
-    (sach+pos) = val;
+    *(sach+pos) = *val;
     // Tang so luong phan tu sau khi chen.
     ++sotuasach;
 }
@@ -219,7 +222,7 @@ void erase (Sach *sach, int &sotuasach, int pos){
     }
     // Dich chuyen mang
     for(int i = pos; i < sotuasach - 1; i++){
-        (sach+i) = (sach+i+1);
+        *(sach+i) = *(sach+i+1);
     }
     // Giam so luong phan tu sau khi xoa.
     --sotuasach;
