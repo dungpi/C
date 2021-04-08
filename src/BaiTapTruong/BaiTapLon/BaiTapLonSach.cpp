@@ -7,13 +7,12 @@
     1.Đếm số sách trong kho(thống kê)(DONE)
     2.tìm kiếm theo tên sách (DONE)
     3.Thống kê sách theo năm xuất bản (DONE)
-    4.Thêm bớt sách 
-    5.Thanh toán gồm: Mã sách|| Tên sách|| số lượng ||giá => Tổng số tiền 
-    6.Xuất ra file nhị phân
-    7.Menu (DONE)
+    4.Xóa sách (DONE)
+    5.Xuất ra file nhị phân (DONE)
+    6.Menu (DONE)
 */
 struct Sach{
-    char masach [30];
+    char masach [8];
     char ten[30];
     char theloai[50];
     char tentacgia[30];    
@@ -33,22 +32,20 @@ void sortbyname (Sach *sach, int sotuasach);
 void statisticsbyquantity (Sach *sach, int sotuasach);//thống kê
 void statisticsbyyear (Sach *sach,int sotuasach);
 void statisticsbyname (Sach *sach,int sotuasach);
-void add(Sach *sach, int &sotuasach, Sach *val, int pos);
-void erase (Sach *sach, int &sotuasach, int pos);
-void menu (Sach *sach, int sotuasach);
+void erase (Sach *sach, int &sotuasach, char ma[8]);
+void outprint (FILE *file,char *path,Sach *sach,int sotuasach);
+void menu (Sach *sach, int sotuasach,char ma[8],FILE *file, char *path);
 int main (){
     Sach *sach;
-    int sotuasach,pos;   
-
-    Sach *val;
+    FILE *file;
+    int sotuasach;
+    char ma[8];   
+    char *path = "./src/BaiTapTruong/outfile/print.out";
     sach = (Sach *)malloc(sizeof(Sach));
     enter (sach,sotuasach);
-    print (sach,sotuasach);
-    add (sach,sotuasach,val,pos);
-    print (sach,sotuasach);
-    erase (sach,sotuasach,pos);
-    print (sach,sotuasach);
-    // menu (sach,sotuasach);
+    menu (sach,sotuasach,ma,file,path);
+    if(sach != NULL)
+    free (sach);
     return 0;
 }
 void enter (Sach *sach){
@@ -91,8 +88,8 @@ void print (Sach *sach){
 void print (Sach *sach, int sotuasach){
     printf ("\n=======================================================================LIST=========================================================================");
     for (int i = 0; i < sotuasach ; i++){
-        printf ("\n----------------------------------------------------------------------------------------------------------------------------------------------------");
         print(sach+i);
+        printf ("\n----------------------------------------------------------------------------------------------------------------------------------------------------");
     }
 }
 void findbyname (Sach *sach, int sotuasach){
@@ -177,78 +174,55 @@ void statisticsbyname (Sach *sach,int sotuasach){
         printf ("\n-----------------------------------------------------------------------------------------------------------------------------------------------");
     }
 }
-void add(Sach *sach, int &sotuasach, Sach *val, int pos){
-        val = (Sach*)realloc(val,(sotuasach)*sizeof(Sach));
+void erase (Sach *sach, int &sotuasach, char ma[8]){
+    bool check = false;
+    printf("\nNhap ma sach muon xoa: ");
     fflush(stdin);
-    printf("\nNhap Thong Tin Sach Can Them\n");
-    enter (val);
-    printf("\nNhap vi tri muon chen: ");
-    scanf("%d", &pos);
-    // Mang da day, khong the them.
-    if(sotuasach >= MAX){
-        return;
-    }
-    // Neu pos <= 0 => Them vao dau
-    if(pos < 0){
-        pos = 0;
-    }
-    // Neu pos >= n => Them vao cuoi
-    else if(pos > sotuasach){
-        pos = sotuasach;
-    }
-    // Dich chuyen mang de tao o trong truoc khi them.
-    for(int i = sotuasach; i > pos; i--){
-        *(sach+i) = *(sach+i-1);
-    }
-    // Chen val tai pos
-    *(sach+pos) = *val;
-    // Tang so luong phan tu sau khi chen.
-    ++sotuasach;
-}
-void erase (Sach *sach, int &sotuasach, int pos){
-    printf("\nNhap vi tri muon xoa: ");
-    scanf("%d", &pos);
-    // Mang rong, khong the xoa.
-    if(sotuasach <= 0){
-        return;
-    }
-    // Neu pos <= 0 => Xoa dau
-    if(pos < 0){
-        pos = 0;
-    }
-    // Neu pos >= n => Xoa cuoi
-    else if(pos >= sotuasach){
-        pos = sotuasach-1;
-    }
+    gets (ma);
     // Dich chuyen mang
-    for(int i = pos; i < sotuasach - 1; i++){
-        *(sach+i) = *(sach+i+1);
+    for(int i = 0; i < sotuasach ; i++){
+        if (strcmp (ma,(sach+i)->masach) == 0){
+            for (int j = i; j < sotuasach - 1;j++){
+                *(sach+j) = *(sach+j+1);
+                check = true;
+            } 
+            sotuasach--;
+        }
     }
-    // Giam so luong phan tu sau khi xoa.
-    --sotuasach;
+    if (check){
+        printf ("\nXoa sach thanh cong!!!");
+    }
+    else printf ("\nMa sach khong ton tai!!!");
 }
-void menu (Sach *sach, int sotuasach){
+void menu (Sach *sach, int sotuasach,char ma[8],FILE *file, char *path){
     int choise ;
     char k,c ;
     do{
         printf("\n===========MENU==========\n");
-        printf("0.Xuat Danh Sach Da Nhap\n");
-        printf("1.Thong Ke Sach Theo So Luong\n");
-        printf("2.Thong Ke Sach Theo Nam Xuat Ban\n");
-        printf("3.Thong Ke Sach Thep Ten Sach (A->Z)\n");
-        printf("4.Tim Sach Theo Ten Sach\n");
+        printf("1.Xuat Danh Sach Da Nhap\n");
+        printf("2.Thong Ke Sach Theo So Luong\n");
+        printf("3.Thong Ke Sach Theo Nam Xuat Ban\n");
+        printf("4.Thong Ke Sach Thep Ten Sach (A->Z)\n");
+        printf("5.Tim Sach Theo Ten Sach\n");
+        printf("6.Xoa Theo Ma Sach\n");
+        printf("7.Xuat ra file nhi phan\n");
         printf("Your choise:");
         scanf("%d",&choise);
         switch (choise){
-            case 0: print(sach,sotuasach);
+            case 1: print(sach,sotuasach);
                 break;
-            case 1:statisticsbyquantity(sach,sotuasach);
+            case 2:statisticsbyquantity(sach,sotuasach);
                 break;
-            case 2:statisticsbyyear(sach,sotuasach);
+            case 3:statisticsbyyear(sach,sotuasach);
                 break;
-            case 3:statisticsbyname(sach,sotuasach);
+            case 4:statisticsbyname(sach,sotuasach);
                 break;
-            case 4:findbyname(sach,sotuasach);
+            case 5:findbyname(sach,sotuasach);
+                break;
+            case 6:erase(sach,sotuasach,ma);
+                   print (sach,sotuasach);
+                break;
+            case 7: outprint (file,path,sach,sotuasach);
                 break;
             default: printf ("\nKhong Hop Le!!! Vui long nhap lai lua chon: ");
                 break;
@@ -257,4 +231,15 @@ void menu (Sach *sach, int sotuasach){
         k = getch();
         c = k;
     }while(c != 27);
+}
+void outprint (FILE *file,char *path,Sach *sach,int sotuasach){
+    char *mode = "ab";//NOTE: a:Khi chưa có file sẽ tạo ra file nếu có rr sẽ ghi tiếp theo ,b: là binarynumber(nhị phân)
+    //mở file 
+    file = fopen (path,mode);
+    fprintf (file,"\n=======================================================================LIST=========================================================================");
+    for (int i = 0; i < sotuasach ; i++){
+        fprintf (file,"\nMa sach: %-10s||Ten Sach: %-20s||The Loai: %-15s||Tac Gia: %-10s||Nam Xuat Ban: %.4d||So Luong: %-3d||Gia: %-6d",(sach+i)->masach,(sach+i)->ten,(sach+i)->theloai,(sach+i)->tentacgia,(sach+i)->namxuatban,(sach+i)->soluong,(sach+i)->gia);
+        fprintf (file,"\n----------------------------------------------------------------------------------------------------------------------------------------------------");
+    }
+    fclose (file);
 }
