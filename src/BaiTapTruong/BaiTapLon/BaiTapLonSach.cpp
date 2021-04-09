@@ -228,7 +228,7 @@ void menu (Sach *sach, int sotuasach,char ma[8],FILE *file, char *path){
             default: printf ("\nKhong Hop Le!!! Vui Long Nhap Lai Lua Chon: ");
                 break;
         }
-        printf("\nDo You Ưant To Exit ?(esc)");
+        printf("\nDo You Want To Exit ?(esc)");
         k = getch();
         c = k;
     }while(c != 27);
@@ -237,6 +237,7 @@ void outprint (FILE *file,char *path,Sach *sach,int sotuasach){
     char *mode = "ab";//NOTE: a:Khi chưa có file sẽ tạo ra file nếu có rr sẽ ghi tiếp theo ,b: là binarynumber(nhị phân)
     //mở file 
     file = fopen (path,mode);
+    fprintf (file,"Cac Thong Tin Sach Cuoi Cung La:");
     fprintf (file,"\n============================================================================LIST==============================================================================");
     for (int i = 0; i < sotuasach ; i++){
         fprintf (file,"\nMa Sach: %-4s||Ten Sach: %-25s||The Loai: %-15s||Tac Gia: %-20s||Nam Xuat Ban: %.4d||So Luong: %-3d||Gia: %-6d",(sach+i)->masach,(sach+i)->ten,(sach+i)->theloai,(sach+i)->tentacgia,(sach+i)->namxuatban,(sach+i)->soluong,(sach+i)->gia);
