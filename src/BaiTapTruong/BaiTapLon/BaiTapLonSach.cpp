@@ -67,10 +67,10 @@ void enter (Sach *sach){
 }
 void enter (Sach *sach, int &sotuasach){
     do {
-    printf ("Nhap So Luong Sach Trong Thu Vien: ");
+    printf ("\n\n\t\t\t\t\t\t\tNhap So Luong Sach Trong Thu Vien: ");
     scanf("%d",&sotuasach);
         if (sotuasach <= 0||sotuasach > MAX){
-            printf ("Xin vui long nhap lai!!!");
+            printf ("Xin Vui Long Nhap Lai!!!");
             printf ("\nNhap So Luong Sach Trong Thu Vien: ");
             scanf("%d",&sotuasach);
         }
@@ -83,13 +83,13 @@ void enter (Sach *sach, int &sotuasach){
     }
 }
 void print (Sach *sach){
-    printf ("\nMa sach: %-10s||Ten Sach: %-20s||The Loai: %-15s||Tac Gia: %-10s||Nam Xuat Ban: %.4d||So Luong: %-3d||Gia: %-6d",sach->masach,sach->ten,sach->theloai,sach->tentacgia,sach->namxuatban,sach->soluong,sach->gia);
+    printf ("\nMa Sach: %-4s||Ten Sach: %-25s||The Loai: %-15s||Tac Gia: %-20s||Nam Xuat Ban: %.4d||So Luong: %-3d||Gia: %-6d",sach->masach,sach->ten,sach->theloai,sach->tentacgia,sach->namxuatban,sach->soluong,sach->gia);
 }
 void print (Sach *sach, int sotuasach){
-    printf ("\n=======================================================================LIST=========================================================================");
+    printf ("\n============================================================================LIST==============================================================================");
     for (int i = 0; i < sotuasach ; i++){
         print(sach+i);
-        printf ("\n----------------------------------------------------------------------------------------------------------------------------------------------------");
+        printf ("\n--------------------------------------------------------------------------------------------------------------------------------------------------------------");
     }
 }
 void findbyname (Sach *sach, int sotuasach){
@@ -100,13 +100,13 @@ void findbyname (Sach *sach, int sotuasach){
     gets (name);
     for (int i = 0; i < sotuasach ; i++){
         if (strcmp (name,(sach+i)->ten) == 0){
-            printf ("\nMa sach: %-10s||Ten Sach: %-20s||The Loai: %-15s||Tac Gia: %-10s||Nam Xuat Ban: %.4d||So Luong: %-3d||Gia: %-6d",(sach+i)->masach,(sach+i)->ten,(sach+i)->theloai,(sach+i)->tentacgia,(sach+i)->namxuatban,(sach+i)->soluong,(sach+i)->gia);
-            printf ("\n----------------------------------------------------------------------------------------------------------------------------------------------------");
+            printf ("\nMa Sach: %-4s||Ten Sach: %-25s||The Loai: %-15s||Tac Gia: %-20s||Nam Xuat Ban: %.4d||So Luong: %-3d||Gia: %-6d",(sach+i)->masach,(sach+i)->ten,(sach+i)->theloai,(sach+i)->tentacgia,(sach+i)->namxuatban,(sach+i)->soluong,(sach+i)->gia);
+            printf ("\n--------------------------------------------------------------------------------------------------------------------------------------------------------------");
             count ++;
         }
     }
     if(count == 0){
-        printf("\nKhong co sach do trong kho!");
+        printf("\nKhong Co Sach Do Trong Kho!");
     }
 }
 int total (Sach *sach, int sotuasach){
@@ -153,30 +153,30 @@ void sortbyname (Sach *sach, int sotuasach){
     }
 }
 void statisticsbyquantity (Sach *sach, int sotuasach){
-    printf ("\nSo luong sach co trong kho la: %d",total(sach,sotuasach));
-    printf ("\nTrong do co :");
+    printf ("\nSo Luong Sach Co Trong Kho La: %d",total(sach,sotuasach));
+    printf ("\nTrong Do Co :");
     sortbynumber (sach,sotuasach);
     for(int i = 0; i < sotuasach ; i++){
-        printf ("\nSo luong %-3d sach: %-20s ||Ma sach: %-10s||The loai: %-15s||Tac gia: %-10s||Nam xuat ban: %.4d||Gia: %-6d",(sach+i)->soluong,(sach+i)->ten,(sach+i)->masach,(sach+i)->theloai,(sach+i)->tentacgia,(sach+i)->namxuatban,(sach+i)->gia);
-        printf ("\n-----------------------------------------------------------------------------------------------------------------------------------------------");
+        printf ("\nSo Luong %-3d Sach: %-25s ||Ma Sach: %-4s||The Loai: %-15s||Tac Gia: %-20s||Nam Xuat Ban: %.4d||Gia: %-6d",(sach+i)->soluong,(sach+i)->ten,(sach+i)->masach,(sach+i)->theloai,(sach+i)->tentacgia,(sach+i)->namxuatban,(sach+i)->gia);
+        printf ("\n--------------------------------------------------------------------------------------------------------------------------------------------------------------");
     }
 }void statisticsbyyear (Sach *sach,int sotuasach){
     sortbyyear (sach,sotuasach);
     for(int i = 0; i < sotuasach ; i++){
-        printf ("\nNam %.4d sach: %-24s ||Ma sach: %-10s||The loai: %-15s||Tac Gia: %-10s||So luong: %-8d||Gia: %-6d",(sach+i)->namxuatban,(sach+i)->ten,(sach+i)->masach,(sach+i)->theloai,(sach+i)->tentacgia,(sach+i)->soluong,(sach+i)->gia);
-        printf ("\n-----------------------------------------------------------------------------------------------------------------------------------------------");
+        printf ("\nNam %.4d Sach: %-25s ||Ma Sach: %-4s||The Loai: %-15s||Tac Gia: %-20s||So Luong: %-3d||Gia: %-6d",(sach+i)->namxuatban,(sach+i)->ten,(sach+i)->masach,(sach+i)->theloai,(sach+i)->tentacgia,(sach+i)->soluong,(sach+i)->gia);
+        printf ("\n--------------------------------------------------------------------------------------------------------------------------------------------------------------");
     }
 }
 void statisticsbyname (Sach *sach,int sotuasach){
     sortbyname (sach,sotuasach);
     for(int i = 0; i < sotuasach ; i++){
-        printf ("\nSach: %-19s||So Luong: %-3d||Ma sach: %-10s||The Loai: %-15s||Tac Gia: %-10s||Nam Xuat Ban: %.4d||Gia: %-6d",(sach+i)->ten,(sach+i)->soluong,(sach+i)->masach,(sach+i)->theloai,(sach+i)->tentacgia,(sach+i)->namxuatban,(sach+i)->gia);
-        printf ("\n-----------------------------------------------------------------------------------------------------------------------------------------------");
+        printf ("\nSach: %-25s||So Luong: %-3d||Ma Sach: %-4s||The Loai: %-15s||Tac Gia: %-20s||Nam Xuat Ban: %.4d||Gia: %-6d",(sach+i)->ten,(sach+i)->soluong,(sach+i)->masach,(sach+i)->theloai,(sach+i)->tentacgia,(sach+i)->namxuatban,(sach+i)->gia);
+        printf ("\n--------------------------------------------------------------------------------------------------------------------------------------------------------------");
     }
 }
 void erase (Sach *sach, int &sotuasach, char ma[8]){
     bool check = false;
-    printf("\nNhap ma sach muon xoa: ");
+    printf("\nNhap Ma Sach Muon Xoa: ");
     fflush(stdin);
     gets (ma);
     // Dich chuyen mang
@@ -190,25 +190,26 @@ void erase (Sach *sach, int &sotuasach, char ma[8]){
         }
     }
     if (check){
-        printf ("\nXoa sach thanh cong!!!");
+        printf ("\nXoa Sach Thanh Cong!!!");
     }
-    else printf ("\nMa sach khong ton tai!!!");
+    else printf ("\nMa Sach Khong Ton Tai!!!");
 }
 void menu (Sach *sach, int sotuasach,char ma[8],FILE *file, char *path){
-    int choise ;
+    int choice ;
     char k,c ;
     do{
-        printf("\n===========MENU==========\n");
-        printf("1.Xuat Danh Sach Da Nhap\n");
-        printf("2.Thong Ke Sach Theo So Luong\n");
-        printf("3.Thong Ke Sach Theo Nam Xuat Ban\n");
-        printf("4.Thong Ke Sach Thep Ten Sach (A->Z)\n");
-        printf("5.Tim Sach Theo Ten Sach\n");
-        printf("6.Xoa Theo Ma Sach\n");
-        printf("7.Xuat ra file nhi phan\n");
-        printf("Your choise:");
-        scanf("%d",&choise);
-        switch (choise){
+        printf("\n\t\t\t\t\t=======================MENU======================\n");
+        printf("\t\t\t\t\t**\t1.Xuat Danh Sach Da Nhap\t        **\n");
+        printf("\t\t\t\t\t**\t2.Thong Ke Sach Theo So Luong\t        **\n");
+        printf("\t\t\t\t\t**\t3.Thong Ke Sach Theo Nam Xuat Ban      **\n");
+        printf("\t\t\t\t\t**\t4.Thong Ke Sach Thep Ten Sach (A->Z)   **\n");
+        printf("\t\t\t\t\t**\t5.Tim Sach Theo Ten Sach\t        **\n");
+        printf("\t\t\t\t\t**\t6.Xoa Theo Ma Sach\t\t        **\n");
+        printf("\t\t\t\t\t**\t7.Xuat Ra File Nhi Phan\t\t        **\n");
+        printf("\t\t\t\t\t=================================================\n");
+        printf("\t\t\t\t\t\t\t  Your Choice: ");
+        scanf("%d",&choice);
+        switch (choice){
             case 1: print(sach,sotuasach);
                 break;
             case 2:statisticsbyquantity(sach,sotuasach);
@@ -224,10 +225,10 @@ void menu (Sach *sach, int sotuasach,char ma[8],FILE *file, char *path){
                 break;
             case 7: outprint (file,path,sach,sotuasach);
                 break;
-            default: printf ("\nKhong Hop Le!!! Vui long nhap lai lua chon: ");
+            default: printf ("\nKhong Hop Le!!! Vui Long Nhap Lai Lua Chon: ");
                 break;
         }
-        printf("\nDo you want to exit ?(esc)");
+        printf("\nDo You Ưant To Exit ?(esc)");
         k = getch();
         c = k;
     }while(c != 27);
@@ -236,10 +237,10 @@ void outprint (FILE *file,char *path,Sach *sach,int sotuasach){
     char *mode = "ab";//NOTE: a:Khi chưa có file sẽ tạo ra file nếu có rr sẽ ghi tiếp theo ,b: là binarynumber(nhị phân)
     //mở file 
     file = fopen (path,mode);
-    fprintf (file,"\n=======================================================================LIST=========================================================================");
+    fprintf (file,"\n============================================================================LIST==============================================================================");
     for (int i = 0; i < sotuasach ; i++){
-        fprintf (file,"\nMa sach: %-10s||Ten Sach: %-20s||The Loai: %-15s||Tac Gia: %-10s||Nam Xuat Ban: %.4d||So Luong: %-3d||Gia: %-6d",(sach+i)->masach,(sach+i)->ten,(sach+i)->theloai,(sach+i)->tentacgia,(sach+i)->namxuatban,(sach+i)->soluong,(sach+i)->gia);
-        fprintf (file,"\n----------------------------------------------------------------------------------------------------------------------------------------------------");
+        fprintf (file,"\nMa Sach: %-4s||Ten Sach: %-25s||The Loai: %-15s||Tac Gia: %-20s||Nam Xuat Ban: %.4d||So Luong: %-3d||Gia: %-6d",(sach+i)->masach,(sach+i)->ten,(sach+i)->theloai,(sach+i)->tentacgia,(sach+i)->namxuatban,(sach+i)->soluong,(sach+i)->gia);
+        fprintf (file,"\n--------------------------------------------------------------------------------------------------------------------------------------------------------------");
     }
     fclose (file);
 }
