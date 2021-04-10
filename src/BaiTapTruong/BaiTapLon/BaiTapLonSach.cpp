@@ -20,21 +20,21 @@ struct Sach{
     int soluong;
     int gia;
 };
-void enter (Sach *sach);
-void enter (Sach *sach, int &sotuasach);
-void print (Sach *sach);
-void print (Sach *sach, int sotuasach);
-void findbyname (Sach *sach, int sotuasach);
-int total (Sach *sach, int sotuasach);//tổng số sách trong kho 
-void sortbynumber (Sach *sach, int sotuasach);// sắp xếp 
-void sortbyyear (Sach *sach, int sotuasach);
-void sortbyname (Sach *sach, int sotuasach);
-void statisticsbyquantity (Sach *sach, int sotuasach);//thống kê
-void statisticsbyyear (Sach *sach,int sotuasach);
-void statisticsbyname (Sach *sach,int sotuasach);
-void erase (Sach *sach, int &sotuasach, char ma[8]);
-void outprint (FILE *file,char *path,Sach *sach,int sotuasach);
-void menu (Sach *sach, int sotuasach,char ma[8],FILE *file, char *path);
+void enter (Sach *sach);//Nhập thông tin của 1 quyển sách
+void enter (Sach *sach, int &sotuasach);//Nhập thông tin của sách theo số tựa sách nhập từ bàn phím 
+void print (Sach *sach);//Xuất các thông tin đã nhập của 1 quyển sách
+void print (Sach *sach, int sotuasach);//Xuất các thông tin của nhưng quyển sách vừa nhập theo số tựa sách 
+void findbyname (Sach *sach, int sotuasach);//Tìm kiếm sách theo tên
+int total (Sach *sach, int sotuasach);//tổng số sách trong thư viện 
+void sortbynumber (Sach *sach, int sotuasach);// sắp xếp tăng dần theo số lượng
+void sortbyyear (Sach *sach, int sotuasach);//sắp xếp tăng dần theo năm xuất bản
+void sortbyname (Sach *sach, int sotuasach);//sắp xếp tăng dần theo tên sách (A->Z)
+void statisticsbyquantity (Sach *sach, int sotuasach);//thống kê theo số lượng
+void statisticsbyyear (Sach *sach,int sotuasach);//thống kê theo năm xuất bản
+void statisticsbyname (Sach *sach,int sotuasach);//thống kê theo tên sách
+void erase (Sach *sach, int &sotuasach, char ma[8]);//Nhập mã cần xóa từ bàn phím từ đó xóa những thông tin liên quan đến mã sách đó
+void outprint (FILE *file,char *path,Sach *sach,int sotuasach);//Xuất những quyển sách ra file nhị phân
+void menu (Sach *sach, int sotuasach,char ma[8],FILE *file, char *path);//menu để lựa chọn
 int main (){
     Sach *sach;
     FILE *file;
