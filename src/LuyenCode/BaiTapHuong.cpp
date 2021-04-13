@@ -25,8 +25,8 @@ int main(){
     int sosinhvien;
     sinhvien = (Sinhvien*)malloc(sizeof(Sinhvien));
     diem = (Diem*)malloc(sizeof(Diem));
-    nhapsv(sinhvien);
-    xuatsv(sinhvien);
+    nhapds(sinhvien,sosinhvien);
+    xuatds(sinhvien,sosinhvien);
 }
 void nhapdiem(Diem *diem){ 
     printf("Nhap diem toan: ");
@@ -37,9 +37,7 @@ void nhapdiem(Diem *diem){
     scanf("%f",&diem->ly);
 }
 void xuatdiem(Diem *diem){
-    printf("Toan: %.2f", diem->toan);
-    printf(" Ly: %.2f", diem->ly);
-    printf(" Hoa: %.2f", diem->hoa);
+    printf("Toan: %.2f ||Ly: %.2f ||Hoa: %.2f", diem->toan,diem->ly,diem->hoa);
 }
 void nhapsv(Sinhvien *sinhvien){
     fflush(stdin);
@@ -54,23 +52,21 @@ void nhapsv(Sinhvien *sinhvien){
     nhapdiem(sinhvien->diem);
 }
 void xuatsv(Sinhvien *sinhvien){
-    printf("Ho va ten:%s \n", sinhvien->ten);
-    printf("Tuoi:%d \n", sinhvien->tuoi);
-    printf("Gioi tinh: %s\n", sinhvien->gioitinh);
+    printf("Ho va ten:%s ||Tuoi:%d ||Gioi tinh: %s\n", sinhvien->ten,sinhvien->tuoi,sinhvien->gioitinh);
     xuatdiem(sinhvien->diem);
 }
 void nhapds(Sinhvien *sinhvien, int &sosinhvien){
-    printf("Nhap so sinh vien: \n");
+    printf("Nhap so sinh vien: ");
     scanf("%d", &sosinhvien);
     for(int i=0;i<sosinhvien;i++){ 
-        printf("sinh vien thu %d: \n", i);
-        nhapsv(sinhvien+i);
+        printf("\nSinh vien thu %d: \n",i+1);
+        nhapsv(&*(sinhvien+i));
     } 
 }
 void xuatds(Sinhvien *sinhvien, int sosinhvien){
     printf("----------Thong tin da nhap--------\n");
     for(int i=0;i<sosinhvien;i++){
-        printf("Sinh vien thu %d: \n",i+1);
+        printf("\n\nSinh vien thu %d: \n",i+1);
         xuatsv(sinhvien+i);
     }
 }
