@@ -1,11 +1,12 @@
 // - nhập xuất 1 struct Sinh viên: mã, tên, năm sinh, điểm toán, lý, hóa (done)
 // - nhập 1 danh sách n sinh viên (done)
-// - kiểm tra sinh viên có mã được nhập vào từ bàn phím
-// - đếm số lượng sinh viên có tên "Nam" trong danh sách
+// - kiểm tra sinh viên có mã được nhập vào từ bàn phím(done)
+// - đếm số lượng sinh viên có tên "Nam" trong danh sách(done)
 // - đếm số lượng sinh viên có điểm trung bình >8
 // - liệt kê danh sách sinh viên có điểm trung bình >8
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #define MAX 10
 struct Diem{
     float toan;
@@ -24,16 +25,19 @@ void enter (SinhVien *sinhvien);
 void print (SinhVien *sinhvien);
 void enter (SinhVien *sinhvien, int &sosinhvien);
 void print (SinhVien *sinhvien, int sosinhvien);
+void findbyid (SinhVien *sinhvien, int sosinhvien);
+void amount(SinhVien *sinhvien, int sosinhvien);
+float dtb (float a, float b,float c);
+void count(SinhVien *sinhvien, int sosinhvien);
 int main (){
     SinhVien *sinhvien;
-    Diem *diem;
     int sosinhvien;
     sinhvien = (SinhVien*)malloc(sizeof(SinhVien));
-    diem = (Diem*)malloc(sizeof(Diem));
     enter (sinhvien,sosinhvien);
-    print (sinhvien,sosinhvien);
+    count (sinhvien,sosinhvien);
     if(sinhvien != NULL)
     free (sinhvien);
+
     return 0;
 }
 void enter (Diem *diem){
@@ -97,9 +101,59 @@ void print (SinhVien *sinhvien){
     print (sinhvien->diem);
 }
 void print (SinhVien *sinhvien, int sosinhvien){
-    printf ("\n=======================================List=========================================");
+    printf ("\n======================================List=========================================");
     for (int i = 0; i < sosinhvien; i ++){
         print (sinhvien+i);
         printf ("\n-----------------------------------------------------------------------------------");
+    }
+}
+void findbyid (SinhVien *sinhvien, int sosinhvien){
+    char id[8];
+    int count = 0;
+    fflush(stdin);
+    printf ("Nhap Ma Can Tim: ");
+    gets (id);
+    for(int i = 0; i < sosinhvien ; i++){
+        if (strcmp(id,(sinhvien+i)->ma) == 0){
+            print (sinhvien+i);
+            count ++;
+        }
+    }
+    if (count == 0){
+        printf ("\nMa Khong Co Trong Danh Sach!!!");
+    }
+}
+void amount(SinhVien *sinhvien, int sosinhvien){
+    int count = 0;
+    for(int i = 0; i < sosinhvien ; i++){
+        if (strcmp("Nam",(sinhvien+i)->ten) == 0){
+            count ++;
+        }
+    }
+    if (count == 0){
+        printf ("\nKhong Co Sinh Vien Ten Nam Trong Danh Sach!");
+    }
+    else {
+        printf ("\nCo %d Sinh Vien Ten Nam Trong Danh",count);
+    }
+}
+float dtb (float a,float b,float c){
+    float dTB = 0;
+        dTB = (a+b+c)/3;
+    return dTB;
+}
+void count(SinhVien *sinhvien, int sosinhvien){
+    int count = 0;
+    for(int i = 0; i < sosinhvien; i++){
+        if (dtb((sinhvien+i)->diem->toan,(sinhvien+i)->diem->ly,(sinhvien+i)->diem->hoa) > 8){
+            count ++;
+            print (sinhvien+i);
+        }
+    }
+    if (count == 0){
+        printf ("\nKhong Co Sinh Vien Co Diem Tren 8");
+    }
+    else {
+        printf ("\nVay Co %d Sinh Vien Co Diem Tren 8",count);
     }
 }
