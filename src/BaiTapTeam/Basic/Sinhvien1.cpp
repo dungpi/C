@@ -2,8 +2,8 @@
 // - nhập 1 danh sách n sinh viên (done)
 // - kiểm tra sinh viên có mã được nhập vào từ bàn phím(done)
 // - đếm số lượng sinh viên có tên "Nam" trong danh sách(done)
-// - đếm số lượng sinh viên có điểm trung bình >8
-// - liệt kê danh sách sinh viên có điểm trung bình >8
+// - đếm số lượng sinh viên có điểm trung bình >8 (done)
+// - liệt kê danh sách sinh viên có điểm trung bình >8 (done)
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -148,6 +148,8 @@ void count(SinhVien *sinhvien, int sosinhvien){
         if (dtb((sinhvien+i)->diem->toan,(sinhvien+i)->diem->ly,(sinhvien+i)->diem->hoa) > 8){
             count ++;
             print (sinhvien+i);
+            printf ("\n-----------------------------------------------------------------------------------");
+
         }
     }
     if (count == 0){
