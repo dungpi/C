@@ -14,7 +14,7 @@ void in1sophuc (SoPhuc *sophuc);
 void print (SoPhuc *sophuc,int n);
 void plus (SoPhuc *sophuc,int n);
 void subtraction (SoPhuc *sophuc,int n);
-SoPhuc TinhTich2SoPhuc(SoPhuc *sophuc);
+SoPhuc* TinhTich2SoPhuc (SoPhuc *sophuc);
 float Modulus(SoPhuc *sophuc);
 int main (){
     SoPhuc *sophuc;
@@ -136,9 +136,10 @@ SoPhuc TinhTich2SoPhuc(SoPhuc *a, SoPhuc *b)
     c->ao = a->thuc * b->ao + a->ao * b->thuc;
     return *c;
 }
-SoPhuc TinhTich2SoPhuc(SoPhuc *sophuc){
-    SoPhuc c;
-        c.thuc = (sophuc+0)->thuc * (sophuc+1)->thuc - (sophuc+0)->ao * (sophuc+1)->ao;
-        c.ao = (sophuc+0)->thuc * (sophuc+1)->ao + (sophuc+0)->ao * (sophuc+1)->thuc;
-    return c;
+SoPhuc* TinhTich2SoPhuc(SoPhuc *sophuc){
+    SoPhuc *c;
+    c = (SoPhuc*)malloc(sizeof(SoPhuc));
+        c->thuc = (sophuc+0)->thuc * (sophuc+1)->thuc - (sophuc+0)->ao * (sophuc+1)->ao;
+        c->ao = (sophuc+0)->thuc * (sophuc+1)->ao + (sophuc+0)->ao * (sophuc+1)->thuc;
+    return *c;
 }
