@@ -1,3 +1,8 @@
+// Phân số
+// - nhập, xuất phân số (done)
+// - viết hàm rút gọn phân số (done)
+// - viết hàm tính tổng, hiệu, tích, thương 2 phân số(done)
+// - viết hàm so sánh 2 phân số trả về một giá trị enum
 #include<stdio.h>
 #include<stdlib.h>
 struct PHANSO{
