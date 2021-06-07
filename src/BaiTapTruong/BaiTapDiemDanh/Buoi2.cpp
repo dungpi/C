@@ -1,10 +1,4 @@
-// Bài 2. Tạo cấu trúc Sach gồm: Tên Sách, Tác giả, Năm Xuất Bản. Viết các hàm sau làm việc
-// với danh sách có n quyển sách có sử dụng cấp phát bộ nhớ động cho mảng cấu trúc thông qua
-// toán tử new hoặc hàm calloc hay malloc
-// a. Hàm nhập vào một dãy n cuốn sách thỏa mãn:
-// - Mẫu hàm : void Nhap(int *n, Sach *&A);
-// - Nhập số cuốn sách n trả ra truyền qua tham biến con trỏ n
-// - Thân hàm cấp phát bộ nhớ cho con trỏ Sach (Vd: A = new Sach[n+1];)
+// Bài 2
 #include <stdlib.h>
 #include <stdio.h>
 #include <conio.h>
