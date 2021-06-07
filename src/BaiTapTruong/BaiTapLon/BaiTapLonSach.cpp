@@ -21,7 +21,7 @@ struct Sach{
     int gia;
 };
 void enter (Sach *sach);//Nhập thông tin của 1 quyển sách
-void enter (Sach *sach, int &sotuasach);//Nhập thông tin của sách theo số tựa sách nhập từ bàn phím 
+void enter (Sach *&sach, int &sotuasach);//Nhập thông tin của sách theo số tựa sách nhập từ bàn phím 
 void print (Sach *sach);//Xuất các thông tin đã nhập của 1 quyển sách
 void print (Sach *sach, int sotuasach);//Xuất các thông tin của nhưng quyển sách vừa nhập theo số tựa sách 
 void findbyname (Sach *sach, int sotuasach);//Tìm kiếm sách theo tên
@@ -40,7 +40,7 @@ int main (){
     FILE *file;
     int sotuasach;
     char ma[8];   
-    char *path = "./src/BaiTapTruong/outfile/print.out";
+    char *path = "./src/BaiTapTruong/outfile/print.txt";
     sach = (Sach *)malloc(sizeof(Sach));
     enter (sach,sotuasach);
     menu (sach,sotuasach,ma,file,path);
@@ -65,7 +65,7 @@ void enter (Sach *sach){
     printf ("Nhap Gia Sach: ");
     scanf("%d",&sach->gia);
 }
-void enter (Sach *sach, int &sotuasach){
+void enter (Sach *&sach, int &sotuasach){
     do {
     printf ("\n\n\t\t\t\t\t\t\tNhap So Luong Sach Trong Thu Vien: ");
     scanf("%d",&sotuasach);
@@ -199,13 +199,13 @@ void menu (Sach *sach, int sotuasach,char ma[8],FILE *file, char *path){
     char k,c ;
     do{
         printf("\n\t\t\t\t\t=======================MENU======================\n");
-        printf("\t\t\t\t\t**\t1.Xuat Danh Sach Da Nhap\t        **\n");
-        printf("\t\t\t\t\t**\t2.Thong Ke Sach Theo So Luong\t        **\n");
+        printf("\t\t\t\t\t**\t1.Xuat Danh Sach Da Nhap\t       **\n");
+        printf("\t\t\t\t\t**\t2.Thong Ke Sach Theo So Luong\t       **\n");
         printf("\t\t\t\t\t**\t3.Thong Ke Sach Theo Nam Xuat Ban      **\n");
         printf("\t\t\t\t\t**\t4.Thong Ke Sach Thep Ten Sach (A->Z)   **\n");
-        printf("\t\t\t\t\t**\t5.Tim Sach Theo Ten Sach\t        **\n");
-        printf("\t\t\t\t\t**\t6.Xoa Theo Ma Sach\t\t        **\n");
-        printf("\t\t\t\t\t**\t7.Xuat Ra File Nhi Phan\t\t        **\n");
+        printf("\t\t\t\t\t**\t5.Tim Sach Theo Ten Sach\t       **\n");
+        printf("\t\t\t\t\t**\t6.Xoa Theo Ma Sach\t\t       **\n");
+        printf("\t\t\t\t\t**\t7.Xuat Ra File Nhi Phan\t\t       **\n");
         printf("\t\t\t\t\t=================================================\n");
         printf("\t\t\t\t\t\t\t  Your Choice: ");
         scanf("%d",&choice);
